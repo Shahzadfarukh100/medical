@@ -1,0 +1,7 @@
+[run]
+omit =
+    */migrations/*
+    */site-packages/*
+    */dist-packages/*
+    medicalpanel/serializer.py
+

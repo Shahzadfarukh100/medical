@@ -1,0 +1,450 @@
+	<!DOCTYPE html>
+	<html lang="zxx" class="no-js">
+	<head>
+        {% load static %}
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+          <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+		<!-- Author Meta -->
+		<meta name="author" content="Colorlib">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Medical</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+			<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+			<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+			<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		</head>
+		<body>
+
+			<!-- Start Header Area -->
+			<header class="default-header">
+				<div class="container">
+					<div class="header-wrap">
+						<div class="header-top d-flex justify-content-between align-items-center">
+							<div class="logo">
+								<a href="#home"><img src="{% static 'img/logo.png' %}" alt=""></a>
+							</div>
+							<div class="main-menubar d-flex align-items-center">
+								<nav class="hide">
+									<a href="#home">Home</a>
+									<a href="#service">Services</a>
+									<a href="#appoinment">Appoinment</a>
+									<a href="#consultant">Consultants</a>
+								</nav>
+								<div class="menu-bar"><span class="lnr lnr-menu"></span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<!-- End Header Area -->
+
+			<!-- start banner Area -->
+			<section class="banner-area relative" id="home">
+				<div class="container">
+						<div class="row fullscreen align-items-center justify-content-center">
+                            {% for banner in banner_header %}
+							<div class="banner-content col-lg-6 col-md-12">
+								<h1 class="text-uppercase">
+									{{ banner.title }}
+								</h1>
+								<p>
+                                    {{ banner.short_description }}
+                                </p>
+								<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
+							</div>
+							<div class="col-lg-6 d-flex  img-right">
+								<img class="img-fluid" src="{{ banner.image.url }}" alt="">
+							</div>
+                            {% endfor %}
+						</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+
+			<!-- Start feature Area -->
+			<section class="feature-area section-gap" id="service">
+				<div class="container">
+					<div class="row">
+                        {% for banner in banner_feature %}
+						<div class="col-lg-6">
+							<div class="single-feature d-flex flex-row pb-30">
+								<div class="icon">
+									<img src="{{ banner.image.url }}" class="img-responsive">
+								</div>
+								<div class="desc">
+									<h4 class="text-uppercase">{{ banner.title }}</h4>
+									<p>
+                                        {{ banner.short_description }}
+                                    </p>
+								</div>
+							</div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</section>
+			<!-- End feature Area -->
+
+    <style>
+        .errorlist {
+            color: #FF0000;
+        }
+        .successMsg{
+            color: mediumspringgreen;
+        }
+    </style>
+			<!-- Start about Area -->
+			<section class="about-area" id="appoinment">
+				<div class="container-fluid">
+					<div class="row d-flex justify-content-end align-items-center">
+						<div class="col-lg-6 col-md-12 about-left no-padding">
+							<img class="img-fluid" src="{% static 'img/about-img.jpg' %}" alt="">
+						</div>
+						<div class="col-lg-6 col-md-12 about-right no-padding">
+							<h1>Book an <br> Appoinment</h1>
+                            <form class="booking-form" name="bookingform" id="bookingform" method="post" action="{% url 'newapp:index' %}#appointment">
+                                {% csrf_token %}
+                                <div id="confirm-message"></div>
+                                <div class="row">
+								 		<div class="col-lg-12 d-flex flex-column">
+                                        {{ form.patient_name }}
+                                            {% if form.patient_name.errors %}
+                                            <span class="errorlist">{{ form.patient_name.errors }}</span>
+                                            {% endif %}
+                                        <div id="patient_name"></div>
+                                        </div>
+							 			<div class="col-lg-6 d-flex flex-column">
+                                        {{ form.phone }}
+                                            {% if form.phone.errors %}
+                                            <span class="errorlist">{{ form.phone.errors }}</span>
+                                            {% endif %}
+                                        <div id="phone"></div>
+                                        </div>
+										<div class="col-lg-6 d-flex flex-column">
+                                        {{ form.appointment_date }}
+                                        {% if form.appointment_date.errors %}
+                                            <span class="errorlist">{{ form.appointment_date.errors }}</span>
+                                        {% endif %}
+                                        <div id="appointment_date"></div>
+                                        </div>
+										<div class="col-lg-12 flex-column">
+                                        {{ form.message }}
+                                        {% if form.message.errors %}
+                                            <span class="errorlist">{{ form.message.errors }}</span>
+                                        {% endif %}
+                                        <div id="message"></div>
+                                        </div>
+
+										<div class="col-lg-10 d-flex justify-content-end send-btn">
+											<button type="submit" class="submit-btn primary-btn mt-20 text-uppercase">Confirm booking<span style="margin-top: 3px;"><i id="spinner" class="fa fa-arrow-right"></i></span></button>
+										</div>
+										<div class="alert-msg"></div>
+									</div>
+					  		</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End about Area -->
+
+			<!-- Start consultans Area -->
+			<section class="consultans-area section-gap" id="consultant">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="col-md-8 pb-80 header-text">
+							{% for banner in banner_consultants %}
+                            <h1>{{ banner.title }}</h1>
+							<p>
+							{{ banner.short_description }}
+                            </p>
+                            {% endfor %}
+						</div>
+					</div>
+					<div class="row">
+                        {% for consultant in consultants %}
+						<div class="col-lg-3 col-md-3 vol-wrap">
+							<div class="single-con">
+								<div class="content">
+								    <a href="#" target="">
+								      <div class="content-overlay"></div>
+								  		 <img class="content-image img-fluid d-block mx-auto" src="{{ consultant.image.url }}" alt="">
+								      	<div class="content-details fadeIn-bottom">
+								      		<h4>{{ consultant.name }}</h4>
+								      		<p>
+								      			{{ consultant.description }}
+								      		</p>
+								      	</div>
+								    </a>
+								 </div>
+							</div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</section>
+			<!-- End consultans Area -->
+
+			<!-- Start fact Area -->
+			<section class="facts-area pt-100 pb-100">
+				<div class="container">
+					<div class="row">
+                        {% for input in inputs %}
+						<div class="col-lg-3 col-md-6 single-fact">
+							<h2 class="counter">{{ input.clients_served }}</h2>
+							<p class="text-uppercase">Clients Served</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-fact">
+							<h2 class="counter">{{ input.x_rays_done }}</h2>
+							<p class="text-uppercase">X-rays Done</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-fact">
+							<h2 class="counter">{{ input.worldwide_stuff }}</h2>
+							<p class="text-uppercase">Worldwide stuff</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-fact">
+							<h2 class="counter">{{ input.lives_saved }}</h2>
+							<p class="text-uppercase">Lives Saved</p>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</section>
+			<!-- end fact Area -->
+
+			<!-- Start blog Area -->
+			<section class="blog-area section-gap">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-8 pb-30 header-text">
+                            {% for banner in banner_recent_blog %}
+							<h1>{{ banner.title }}</h1>
+							<p>
+							    {{ banner.short_description }}
+                            </p>
+                            {% endfor %}
+						</div>
+					</div>
+					<div class="row">
+                        {% for blog in blog_post %}
+						<div class="single-blog col-lg-4 col-md-4">
+							<img class="f-img img-fluid mx-auto" src="{{ blog.image.url }}" alt="">
+							<h4>
+								<a href="#">{{ blog.blog_title }}</a>
+							</h4>
+							<p>
+                                {{ blog.blog_description }}
+                            </p>
+							<div class="bottom d-flex justify-content-between align-items-center flex-wrap">
+								<div>
+									<span>{{ blog.author }}</span>
+								</div>
+								<div class="meta">
+									{{ blog.created_date }}
+								</div>
+							</div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</section>
+			<!-- end blog Area -->
+
+			<!-- start footer Area -->
+			<footer class="footer-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-2  col-md-6">
+							<div class="single-footer-widget">
+								<h6>Top Products</h6>
+								<ul class="footer-nav">
+									<li><a href="#">Managed Website</a></li>
+									<li><a href="#">Manage Reputation</a></li>
+									<li><a href="#">Power Tools</a></li>
+									<li><a href="#">Marketing Service</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-4  col-md-6">
+							<div class="single-footer-widget mail-chimp">
+                                {% for banner in banner_contact %}
+								<h6 class="mb-20">{{ banner.title }}</h6>
+								<p>
+                                    {{ banner.short_description }}
+                                </p>
+								<h3>{{ banner.number }}</h3>
+                                {% endfor %}
+							</div>
+						</div>
+						<div class="col-lg-6  col-md-12">
+							<div class="single-footer-widget newsletter">
+                                {% for banner in banner_footer %}
+								<h6>{{ banner.title }}</h6>
+								<p>{{ banner.short_description }}</p>
+                                {% endfor %}
+								<div id="mc_embed_signup">
+									<form id="newsForm" name="newsForm" method="post" class="form-inline" action="{% url 'newapp:subscribe' %}">{% csrf_token %}
+										<div class="form-group row" style="width: 100%">
+                                            {{ newsletter_form.errors }}
+											<div class="col-lg-8 col-md-12">
+												{{ newsletter_form.email }}
+											</div>
+											<div class="col-lg-4 col-md-12">
+												<button type="submit" class="nw-btn primary-btn">Subscribe<span style="margin-top: 3px;"><i id="spinner-subscribe" class="fa fa-arrow-right"></i></span></button>
+											</div>
+                                            <div id="error-message"></div>
+                                            <div id="success-message"></div>
+										</div>
+										<div class="info"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row footer-bottom d-flex justify-content-between">
+						<p class="col-lg-8 col-sm-12 footer-text m-0">
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+						<div class="col-lg-4 col-sm-12 footer-social">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End footer Area -->
+
+			<script src="{%  static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+			<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+			<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+			<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+			<script src="{% static 'js/jquery.sticky.js' %}"></script>
+			<script src="{% static 'js/parallax.min.js' %}"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+			<script src="{% static 'js/waypoints.min.js' %}"></script>
+			<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+            <script>
+                $( document ).ready(function() {
+                    $('.datepicker').datepicker();
+                });
+            </script>
+
+            <script>
+                $( document ).on('submit', '#bookingform', function (e) {
+                   e.preventDefault();
+                   var spinner = $('#spinner');
+                   spinner.removeClass('fa-arrow-right');
+                   spinner.addClass('fa-spinner');
+                   spinner.addClass('fa-spin');
+                   spinner.addClass('errorlist');
+                   var submit = $('.submit-btn');
+                   var alert = $('.alert-msg');
+                   $.ajax({
+                       type: 'POST',
+                       url: '{% url "newapp:index" %}',
+                       data:{
+                           patient_name :$('#patient').val(),
+                           phone :$('#phn').val(),
+                           appointment_date :$('#appointment').val(),
+                           message :$('#msg').val(),
+                           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                           ajax: true,
+                       }, beforeSend: function() {
+                        alert.fadeOut();
+                        }, success:function (res) {
+                           spinner.removeClass('fa-spinner');
+                           spinner.removeClass('fa-spin');
+                           spinner.removeClass('errorlist');
+                           spinner.addClass('fa-arrow-right');
+                           if (res.status == 'ok'){
+                               alert.html(res).fadeIn();
+                               document.getElementById("bookingform").reset();
+                               var html = "<i class='successMsg'>"+res.message+"</i>";
+                               $('#confirm-message').html(html);
+                           } else if (res.status=="error") {
+                               alert.html(res).fadeIn();
+                               document.getElementById("bookingform").reset();
+                               var keys = Object.keys(res.message);
+                               console.log(keys);
+                               for (var i = 0; i < keys.length; i++) {
+                                   var msg = res.message[keys[i]];
+                                   var key = keys[i];
+                                   $('#'+key).html("<span class='errorlist'>"+msg+"</span>");
+                               }
+                           }
+                       }
+                   });
+                });
+            </script>
+
+            <script>
+                $( document ).on('submit', '#newsForm', function (e) {
+                   e.preventDefault();
+                   var spinner = $('#spinner-subscribe');
+                   spinner.removeClass('fa-arrow-right');
+                   spinner.addClass('fa-spinner');
+                   spinner.addClass('fa-spin');
+                   spinner.addClass('errorlist');
+                   var submit = $('.nw-btn');
+                   var alert = $('.info');
+
+                   $.ajax({
+                       type: 'POST',
+                       url: '{% url "newapp:subscribe" %}',
+                       data:{
+                           email :$('#em').val(),
+                           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                           ajax: true,
+                       },beforeSend: function() {
+                        alert.fadeOut();
+                        },success:function (res) {
+                           spinner.removeClass('fa-spinner');
+                           spinner.removeClass('fa-spin');
+                           spinner.removeClass('errorlist');
+                           spinner.addClass('fa-arrow-right');
+                           if (res.status == 'ok'){
+                               alert.html(res).fadeIn();
+                               document.getElementById("newsForm").reset();
+                               var html = "<i class='successMsg'>"+res.message+"</i>";
+                               $('#success-message').html(html);
+                           } else if (res.status=="error") {
+                               var keys = Object.keys(res.message);
+                               var html = "";
+                               for (var i = 0; i < keys.length; i++) {
+                                   var message = res.message[keys[i]];
+                                   var s = "<i class='errorlist'>"+message+"</i>";
+                                   html += s;
+                               }
+                               $('#error-message').html(html);
+                           }
+                       }
+                   });
+                });
+            </script>
+
+		</body>
+	</html>

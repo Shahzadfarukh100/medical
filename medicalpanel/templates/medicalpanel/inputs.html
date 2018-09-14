@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
+</head>
+
+<body class="" id="myID">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{% static 'img/sidebar-1.jpg' %}">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo">
+        <a href="{% url 'medicalpanel:dashboard' %}" class="simple-text logo-normal">
+          Medical Panel
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'medicalpanel:dashboard' %}">
+              <i class="material-icons">library_books</i>
+              <p>Blog Posts</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'medicalpanel:Dbans-view' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Banners</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'medicalpanel:consultant-view' %}">
+              <i class="material-icons">library_books</i>
+              <p>Consultant</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'medicalpanel:input-view' %}">
+              <i class="material-icons">library_books</i>
+              <p>Inputs</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'medicalpanel:appointment-view' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Appointment</p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'medicalpanel:newsletter-view' %}">
+              <i class="material-icons">library_books</i>
+              <p>Newsletter</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#pablo">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'medicalpanel:logout' %}">
+                  <i class="fa fa-power-off"></i>
+                  <p class="d-lg-none d-md-block">
+                    Logout
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Inputs</h4>
+                  <p class="card-category"> Create Update Delete Input</p>
+                  <button id="add"  style="float: right"  data-toggle="modal" data-target="#add-modal" class="btn btn-primary" data-style="expand-left">
+                      Add Input
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>ID</th>
+                        <th>Clients Served</th>
+                        <th>X Rays Done</th>
+                        <th>Worldwide Stuff</th>
+                        <th>Lives Saved</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                      </thead>
+                      <tbody id="blog">
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+      <!-- End Navbar -->
+
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+      </div>
+  </div>
+  </div>
+
+  <style>
+       .errorlist
+       {
+           color: #FF0000;
+       }
+       .successMsg{
+            color: #4caf50;
+        }
+   </style>
+
+  <!-- ADD MODAL-->
+<div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Add Input </strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" name="adding" id="adding"  enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <center><b><div id="completed"></div></b></center>
+                <div class="modal-body">
+                    <div>
+                        <input type="text" name="clients" id="clients" placeholder="Clients Served" class="form-control" required/>
+                            <div id="clients_served"></div>
+                        <br>
+                        </div>
+                        <div>
+                             <input type="text" name="x_rays_done" id="xrays" placeholder="X Rays Done" class="form-control">
+                            <div id="x_rays_done"></div>
+                        <br>
+                        </div>
+                        <div>
+                            <input type="text" name="worldwide_stuff" id="stuff" placeholder="Worldwide Stuff" class="form-control" required/>
+                            <div id="worldwide_stuff"></div>
+                        <br>
+                        </div>
+                        <div>
+                            <input type="text" name="lives_saved" id="lives" placeholder="Lives Saved" class="form-control"/>
+                            <div id="lives_saved"></div>
+                        <br>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-lg text-uppercase ">Add Input</button>
+                          <div class="alert-msg"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- END ADD MODAL -->
+
+<!-- UPDATE MODAL -->
+
+<div class="modal fade" id="Update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Update Input</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="UDing" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div id="form"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="update-user" id="update-user" class="btn btn-primary" onclick="USubmit(this)">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- END Update MODAL -->
+
+<!-- Delete MODAL -->
+
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Delete Input</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to <strong>DELETE</strong> this Input ?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="DSubmit(this)" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END DELETE MODAL -->
+
+  <!--   Core JS Files   -->
+  <script src="{% static 'js/core/jquery.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+
+  <script src="{% static 'js/bootbox.min.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!--  Google Maps Plugin    -->
+{#  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>#}
+  <!-- Chartist JS -->
+  <script src="{% static 'js/plugins/chartist.min.js' %}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'js/material-dashboard.min.js' %}" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{% static 'demo/demo.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/tether/1.1.1/js/tether.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
+
+    <script>
+        function redirecting(){
+        $.ajax({
+          method: "GET",
+          url: "{% url 'medicalpanel:inputs' %}",
+        })
+          .done(function( msg ) {
+            var data = JSON.parse(msg);
+            var html = "";
+            for (var i=0; i < data.length; i++) {
+                var h = "<tr>";
+                var url = "{% url 'medicalpanel:input-rud-post' 0%}";
+                url = url.slice(0, url.length-1) + data[i].id;
+                url = "data-url="+url;
+                h += "<td>" + data[i].id + "</td>";
+                h += "<td>" + data[i].clients_served + "</td>";
+                h += "<td>"  + data[i].x_rays_done + "</td>";
+                h += "<td>" + data[i].worldwide_stuff + "</td>";
+                h += "<td>" + data[i].lives_saved  + "</td>";
+                {% if user.is_superuser %}
+                h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-edit"'+url+' data-toggle="modal" data-target="#Update" onclick="updat(this)"></button>'+"</td>"
+                h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-trash"'+url+' data-toggle="modal" data-target="#Delete" onclick="del(this)"></button>'+"</td>";
+                {% endif %}
+                h += "</tr>";
+                html += h;
+            }
+            $("#blog").html(html);
+          });
+          }
+        redirecting();
+
+        $( document ).on('submit', '#adding', function (e) {
+                   e.preventDefault();
+                   if ($('#clients').val().length < 1){
+                       $('#clients_served').html("<span class='errorlist'>This field may not be blank.</span>");
+                   }
+                   if ($('#xrays').val().length < 1){
+                       $('#x_rays_done').html("<span class='errorlist'>This field may not be blank.</span>");
+                   }
+                   if ($('#stuff').val().length < 1){
+                       $('#worldwide_stuff').html("<span class='errorlist'>This field may not be blank.</span>");
+                   }
+                   if ($('#lives').val().length < 1){
+                       $('#lives_saved').html("<span class='errorlist'>This field may not be blank.</span>");
+                   }
+                        $.ajax({
+                            type: 'POST',
+                            url: '{% url "medicalpanel:inputs" %}',
+                            headers: {
+                           'X-CSRFToken': "{{ csrf_token }}",
+                            },
+                            data: {
+                                clients_served :$('#clients').val(),
+                                x_rays_done : $('#xrays').val(),
+                                worldwide_stuff: $('#stuff').val(),
+                                lives_saved : $('#lives').val()
+                            },
+                            success:function (res) {
+                                if (res.status == 'ok'){
+                                    redirecting();
+                                    document.getElementById("adding").reset();
+                                    $('#completed').html("<span class='successMsg'>"+res.message+"</span>");
+                                    $('#clients_served').html("");
+                                    $('#x_rays_done').html("");
+                                    $('#worldwide_stuff').html("");
+                                    $('#lives_saved').html("");
+                                }else if (res.status=="error") {
+                                    var keys = Object.keys(res.message);
+                                    console.log(keys);
+                                    for (var i = 0; i < keys.length; i++) {
+                                        var msg = res.message[keys[i]];
+                                        var key = keys[i];
+                                        $('#'+key).html("<span class='errorlist'>"+msg+"</span>");
+                                    }
+                                }
+                            }
+                        });
+        });
+
+        // <!--Update getting-->
+        function updat(ref) {
+            var u = $(ref).attr('data-url');
+            $('#update-user').attr('data-url', u);
+           $.ajax({
+                 type:"GET",
+                 url: u,
+            })
+            .done(function( msg ) {
+                var cli = msg.clients_served;
+                var xray = msg.x_rays_done;
+                var world = msg.worldwide_stuff;
+                var saved = msg.lives_saved;
+
+                var x = document.createElement('input');
+                x.value = cli;
+                x.id = 'tito';
+                x.name = 'title';
+                x.className = 'form-control';
+                x.type = 'text';
+
+                var i = document.createElement('input');
+                i.value = xray;
+                i.id = 'im';
+                i.name = 'image';
+                i.className = 'form-control';
+                i.type = 'text';
+
+
+                var y = document.createElement('input');
+                y.value = world;
+                y.id = 'dest';
+                y.name = 'description';
+                y.className = 'form-control';
+                y.type = 'text';
+
+                var z = document.createElement('input');
+                z.value = saved;
+                z.id = 'au';
+                z.name = 'author';
+                z.className = 'form-control';
+                z.type = 'text';
+
+                var div = document.createElement('div');
+                div.appendChild(x);
+                div.appendChild(i);
+                div.appendChild(y);
+                div.appendChild(z);
+
+                $("#form").html(div);
+          });
+        }
+
+        // <!--after getting updating-->
+        function USubmit(ref) {
+           var u = $(ref).attr('data-url');
+           $.ajax({
+                 type:"PUT",
+                 url: u,
+                 headers: {
+                        "X-CSRFToken": "{{csrf_token}}"
+                 },
+                 data: {
+                        'clients_served': $('#tito').val(),
+                        'x_rays_done': $('#im').val(),
+                        'worldwide_stuff': $('#dest').val(),
+                        'lives_saved': $('#au').val()
+                        }
+            })
+            .done(function( msg ) {
+             console.log(msg);
+             redirecting();
+          });
+        }
+
+        // <!--Delete getting-->
+        function del(ref) {
+           var u = $(ref).attr('data-url');
+           $('#delete-blog').attr('data-url', u);
+        }
+
+        <!-- after getting Deleting-->
+        function DSubmit(ref){
+            var u = $(ref).attr('data-url');
+            $.ajax({
+                 type:"DELETE",
+                 url: u,
+                 headers: {
+                        "X-CSRFToken": "{{csrf_token}}"
+                 }
+            })
+            .done(function( msg ) {
+            console.log(msg);
+            redirecting();
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>
