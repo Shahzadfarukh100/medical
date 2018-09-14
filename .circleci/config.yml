@@ -54,3 +54,16 @@ jobs:
           path: test-reports
           destination: test-reports
           
+   test:
+    docker:
+      - image: circleci/node:4.8.2-jessie
+      - image: mongo:3.4.4-jessie
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: Generate code coverage
+          command: './node_modules/.bin/nyc report --reporter=text-lcov'       
+          
