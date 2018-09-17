@@ -49,6 +49,10 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test 
-            coveralls            
+            coveralls  
+      
+      - store_artifacts: # special step to store test reports as artifacts
+          path: test-reports/
+          destination: tr1
   
           
