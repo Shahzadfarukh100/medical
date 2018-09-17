@@ -50,10 +50,9 @@ jobs:
             . venv/bin/activate
             python manage.py test 
             
-  test:
-    override:
+  
       - coverage run --source=<newapp, medicalpanel> manage.py test
-    post:
+  
       - coveralls            
   
           
