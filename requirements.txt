@@ -17,3 +17,4 @@ django==2.1.1
 djangorestframework==3.8.2
 Pillow==5.2.0
 model_mommy==1.6.0
+coveralls==0.2
