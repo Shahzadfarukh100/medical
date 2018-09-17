@@ -52,7 +52,6 @@ jobs:
             coveralls
             
       - run: mkdir test-reports
-      - run: coverage report 
       - store_test_results:
          path: test-reports
       - store_artifacts:
