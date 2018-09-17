@@ -1,2 +1,3 @@
 # medical
-[![Coverage Status](https://coveralls.io/repos/github/aleemasgher/medical/badge.png?branch=master)](https://coveralls.io/github/aleemasgher/medical?branch=master)
+<a href='https://coveralls.io/github/aleemasgher/medical'><img src='https://coveralls.io/repos/github/aleemasgher/medical/badge.svg' alt='Coverage Status' /></a>
+
