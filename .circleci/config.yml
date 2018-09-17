@@ -49,10 +49,6 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test 
-            
-  
-      - coverage run --source=<newapp, medicalpanel> manage.py test
-  
-      - coveralls            
+            coveralls            
   
           
