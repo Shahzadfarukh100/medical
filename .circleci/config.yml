@@ -49,7 +49,12 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
+            coverage report
+            coverage html
             coveralls
+      
+      -store_artifacts:
+            path /tmp/artifacts
            
           
           
