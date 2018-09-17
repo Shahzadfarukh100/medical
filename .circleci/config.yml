@@ -48,4 +48,5 @@ jobs:
           command: |
             . venv/bin/activate
             coverage run manage.py test
+            coverage report
             coveralls
