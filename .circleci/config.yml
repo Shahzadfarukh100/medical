@@ -48,15 +48,6 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python manage.py test
-
-    
-      - coveralls
-        
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
-          destination: test-reports          
+            python manage.py test    
   
           
