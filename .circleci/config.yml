@@ -50,7 +50,6 @@ jobs:
             . venv/bin/activate
             coverage run manage.py test
             coverage report
-            coverage html
             coveralls
       
       
