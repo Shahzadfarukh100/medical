@@ -50,6 +50,9 @@ jobs:
             . venv/bin/activate
             python manage.py test
 
+    
+      - coveralls
+        
       - store_test_results:
           path: test-results
       - store_artifacts:
