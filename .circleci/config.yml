@@ -49,7 +49,7 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
-            coverage report
+            
             coverage html
             coveralls
       
