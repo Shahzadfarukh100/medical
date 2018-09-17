@@ -49,10 +49,6 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
-    post:
-      - coverage run src/*.py
-      - coverage report
-      - coveralls  
 
       - store_test_results:
           path: test-results
