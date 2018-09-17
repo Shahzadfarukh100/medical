@@ -49,9 +49,13 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
-            coverage report
             coveralls
-      
-     
+            
+      - run: mkdir test-reports
+      - run: coverage report && coverage xml -o test-reports/coverage.xml
+      - store_test_results:
+         path: test-reports
+      - store_artifacts:
+         path: test-reports
           
           
