@@ -461,10 +461,6 @@
                 o.type = 'file';
                 o.required = false;
 
-                var p = document.createElement('p');
-                p.id = 'p';
-                p.type = 'text';
-
                 var y = document.createElement('input');
                 y.value = description;
                 y.id = 'desp';
@@ -477,7 +473,6 @@
                 div.appendChild(x);
                 div.appendChild(i);
                 div.appendChild(o);
-                div.appendChild(p);
                 div.appendChild(y);
 
                 $("#form").html(div);
@@ -488,35 +483,53 @@
         function USubmit(ref) {
             var u = $(ref).attr('data-url');
             var im = $('#im')[0].files[0];
-            if ($('#im').val().length < 1){
-                       $('#p').html("<span class='errorlist'>This field is required.</span>");
-                   }
-            var reader = new FileReader();
-            reader.readAsBinaryString(im);
-            reader.onloadend = function () {
-                var base64 = btoa(reader.result);
-                console.log(base64);
+            if ($('#im').val().length >1) {
+                var reader = new FileReader();
+                reader.readAsBinaryString(im);
+                reader.onloadend = function () {
+                    var base64 = btoa(reader.result);
+                    console.log(base64);
+                    var tito = $('#names').val();
+                    var short = $('#desp').val();
+                    var data = {
+                        name: tito,
+                        image: base64,
+                        description: short,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
+                }
+            }else{
                 var tito = $('#names').val();
-                var short = $('#desp').val();
-                var data = {
-                    name: tito,
-                    image: base64,
-                    description : short,
-                };
-                console.log(data);
-                $.ajax({
-                    type: "PUT",
-                    url: u,
-                    headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                    },
-                    data: data
-                })
-                    .done(function (msg) {
-                        console.log(msg);
-                        $('#p').html("");
-                        redirecting();
-                    });
+                    var short = $('#desp').val();
+                    var data = {
+                        name: tito,
+                        description: short,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
             }
         }
 
