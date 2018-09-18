@@ -462,10 +462,6 @@
                 i.className = 'form-control';
                 i.type = 'file';
 
-                var p = document.createElement('p');
-                p.id = 'p';
-                p.type = 'text';
-
                 var y = document.createElement('input');
                 y.value = number;
                 y.id = 'no';
@@ -479,7 +475,6 @@
                 div.appendChild(c);
                 div.appendChild(s);
                 div.appendChild(i);
-                div.appendChild(p);
                 div.appendChild(y);
 
                 $("#form").html(div);
@@ -490,39 +485,61 @@
         function USubmit(ref) {
             var u = $(ref).attr('data-url');
             var im = $('#im')[0].files[0];
-            if ($('#im').val().length < 1){
-                       $('#p').html("<span class='errorlist'>This field is required.</span>");
-                   }
-            var reader = new FileReader();
-            reader.readAsBinaryString(im);
-            reader.onloadend = function () {
-                var base64 = btoa(reader.result);
-                console.log(base64);
+            if ($('#im').val().length >1) {
+                var reader = new FileReader();
+                reader.readAsBinaryString(im);
+                reader.onloadend = function () {
+                    var base64 = btoa(reader.result);
+                    console.log(base64);
+                    var tito = $('#tito').val();
+                    var code = $('#co').val();
+                    var short = $('#sh').val();
+                    var number = $('#no').val();
+                    var data = {
+                        title: tito,
+                        code: code,
+                        short_description: short,
+                        image: base64,
+                        number: number,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
+                }
+            }else{
                 var tito = $('#tito').val();
-                var code = $('#co').val();
-                var short = $('#sh').val();
-                var number = $('#no').val();
-                var data = {
-                    title: tito,
-                    code : code,
-                    short_description : short,
-                    image: base64,
-                    number: number,
-                };
-                console.log(data);
-                $.ajax({
-                    type: "PUT",
-                    url: u,
-                    headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                    },
-                    data: data
-                })
-                    .done(function (msg) {
-                        console.log(msg);
-                        $('#p').html("");
-                        redirecting();
-                    });
+                    var code = $('#co').val();
+                    var short = $('#sh').val();
+                    var number = $('#no').val();
+                    var data = {
+                        title: tito,
+                        code: code,
+                        short_description: short,
+                        number: number,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
             }
         }
 
