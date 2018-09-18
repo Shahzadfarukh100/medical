@@ -447,10 +447,6 @@
                 i.className = 'form-control';
                 i.type = 'file';
 
-                var p = document.createElement('p');
-                p.id = 'p';
-                p.type = 'text';
-
                 var y = document.createElement('textarea');
                 y.value = description;
                 y.id = 'dest';
@@ -470,7 +466,6 @@
                 div.appendChild(x);
                 div.appendChild(m);
                 div.appendChild(i);
-                div.appendChild(p);
                 div.appendChild(y);
                 div.appendChild(z);
 
@@ -482,40 +477,60 @@
         function USubmit(ref) {
             var u = $(ref).attr('data-url');
             var im = $('#im')[0].files[0];
-            if ($('#im').val().length < 1){
-                       $('#p').html("<span class='errorlist'>This field is required.</span>");
-                   }
-            var reader = new FileReader();
-            reader.readAsBinaryString(im);
-            reader.onloadend = function () {
-                var base64 = btoa(reader.result);
-                console.log(base64);
+            if ($('#im').val().length > 1) {
+                var reader = new FileReader();
+                reader.readAsBinaryString(im);
+                reader.onloadend = function () {
+                    var base64 = btoa(reader.result);
+                    console.log(base64);
+                    var tito = $('#tito').val();
+                    var dest = $('#dest').val();
+                    var au = $('#au').val();
+                    console.log(tito);
+                    console.log(dest);
+                    console.log(au);
+                    var data = {
+                        blog_title: tito,
+                        image: base64,
+                        blog_description: dest,
+                        author: au,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
+                }
+            }else{
                 var tito = $('#tito').val();
-                var dest = $('#dest').val();
-                var au = $('#au').val();
-                console.log(tito);
-                console.log(dest);
-                console.log(au);
-                var data = {
-                    blog_title: tito,
-                    image: base64,
-                    blog_description: dest,
-                    author: au,
-                };
-                console.log(data);
-                $.ajax({
-                    type: "PUT",
-                    url: u,
-                    headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                    },
-                    data: data
-                })
-                    .done(function (msg) {
-                        console.log(msg);
-                        $('#p').html("");
-                        redirecting();
-                    });
+                    var dest = $('#dest').val();
+                    var au = $('#au').val();
+                    var data = {
+                        blog_title: tito,
+                        blog_description: dest,
+                        author: au,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "PUT",
+                        url: u,
+                        headers: {
+                            "X-CSRFToken": "{{csrf_token}}"
+                        },
+                        data: data
+                    })
+                        .done(function (msg) {
+                            console.log(msg);
+                            redirecting();
+                        });
             }
         }
 
