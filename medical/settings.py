@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     'newapp.apps.NewappConfig',
     'medicalpanel.apps.MedicalpanelConfig',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,3 +141,5 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'medicalpanel:dashboard'
 LOGOUT_REDIRECT_URL = 'medicalpanel:login'
+
+CORS_ORIGIN_WHITELIST = 'localhost:8001',
