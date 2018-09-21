@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 import json
 from newapp.forms import *
 from django.contrib import auth
@@ -43,7 +43,7 @@ class BlogGetView(APIView):
                        created_date=blog.created_date.strftime("%Y-%m-%d %H:%M:%S"))
             blogs.append(use)
 
-        return JsonResponse(json.dumps(blogs), safe=False)
+        return HttpResponse(json.dumps(blogs))
 
     def post(self, request, *args, **kwargs):
         serializer = BlogSerializer(data=request.data)
@@ -90,7 +90,7 @@ class BannerGetView(APIView):
                 ban['image'] = b.image.url
             banner.append(ban)
 
-        return JsonResponse(json.dumps(banner), safe=False)
+        return HttpResponse(json.dumps(banner))
 
     def post(self, request, *args, **kwargs):
         serializer = BannerSerializer(data=request.data)
@@ -138,7 +138,7 @@ class ConsultantGetView(APIView):
                 ban['image'] = b.image.url
             banner.append(ban)
 
-        return JsonResponse(json.dumps(banner), safe=False)
+        return HttpResponse(json.dumps(banner))
 
     def post(self, request, *args, **kwargs):
         serializer = ConsultantSerializer(data=request.data)
@@ -189,7 +189,7 @@ class AppointmentGetView(APIView):
                        appointment_date=b.appointment_date.strftime("%Y-%m-%d %H:%M:%S"), message=b.message)
             banner.append(ban)
 
-        return JsonResponse(json.dumps(banner), safe=False)
+        return HttpResponse(json.dumps(banner))
 
     def post(self, request, *args, **kwargs):
         serializer = AppointmentSerializer(data=request.data)
@@ -224,7 +224,7 @@ class NewsletterGetView(APIView):
             ban = dict(id=b.id, email=b.email, dated=b.dated.strftime("%Y-%m-%d %H:%M:%S"))
             banner.append(ban)
 
-        return JsonResponse(json.dumps(banner), safe=False)
+        return HttpResponse(json.dumps(banner))
 
     def post(self, request, *args, **kwargs):
         serializer = NewsletterSerializer(data=request.data)
@@ -254,7 +254,7 @@ class InputGetView(APIView):
                        worldwide_stuff=b.worldwide_stuff, lives_saved=b.lives_saved)
             banner.append(ban)
 
-        return JsonResponse(json.dumps(banner), safe=False)
+        return HttpResponse(json.dumps(banner))
 
     def post(self, request, *args, **kwargs):
         serializer = InputSerializer(data=request.data)
