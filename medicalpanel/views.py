@@ -195,8 +195,11 @@ class AppointmentGetView(APIView):
         serializer = AppointmentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return HttpResponseRedirect(reverse('medicalpanel:appointment-view'))
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'status': 'ok', 'message': 'Appointment Confirmed.'})
+        else:
+            error_message = dict(
+                [(key, [error for error in value]) for key, value in serializer.errors.items()])
+            return JsonResponse({'status': 'error', "message": error_message})
 
 
 class AppointmentRUDView(RetrieveUpdateDestroyAPIView):
