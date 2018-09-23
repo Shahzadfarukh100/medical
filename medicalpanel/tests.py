@@ -70,7 +70,7 @@ class TestViews(TestCase):
             'email': 'test@example.com',
         }
         result = self.client.post(reverse('medicalpanel:newsletter'), data=data)
-        self.assertEqual(result.url, reverse('medicalpanel:newsletter-view'))
+        self.assertTrue(result)
 
     def test_consultant_get(self):
         result = self.client.get(reverse('medicalpanel:consultant'))
