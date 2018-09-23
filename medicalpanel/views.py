@@ -219,6 +219,11 @@ class DNewsletterView(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+
+
 class NewsletterGetView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -232,9 +237,21 @@ class NewsletterGetView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = NewsletterSerializer(data=request.data)
         if serializer.is_valid():
+            to_email = serializer.validated_data.get('email')
+            current_site = get_current_site(request)
+            mail_subject = 'Congratulations'
+            message = render_to_string('newapp/newletter_email.html', {
+                'email': to_email,
+                'domain': current_site.domain,
+            })
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
             serializer.save()
-            return HttpResponseRedirect(reverse('medicalpanel:newsletter-view'))
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'status': 'ok', 'message': 'You are Subscribed to newsletter now.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': serializer.errors})
 
 
 class NewsletterRUDView(RetrieveUpdateDestroyAPIView):
