@@ -20,6 +20,9 @@ from newapp.forms import *
 from django.contrib import auth
 from django.contrib.auth.views import LoginView
 import base64
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 
 
 # Login
@@ -217,11 +220,6 @@ class DNewsletterView(LoginRequiredMixin, generic.TemplateView):
         context['newsletter'] = Newsletter.objects.all()
         context['newsletter_form'] = NewsletterForm()
         return context
-
-
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
 
 
 class NewsletterGetView(APIView):
