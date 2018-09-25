@@ -61,11 +61,13 @@ class BannerSerializer(serializers.Serializer):
 
 
 class ConsultantSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
     name = serializers.CharField()
     image = serializers.CharField(required=False)
     description = serializers.CharField()
 
     def update(self, instance, validated_data):
+        instance.id = validated_data.get('id', instance.id)
         instance.name = validated_data.get('name', instance.name)
         if validated_data.get('image'):
             bimage = base64.b64decode(validated_data.get('image'))
