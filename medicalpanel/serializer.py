@@ -33,6 +33,7 @@ class BlogSerializer(serializers.Serializer):
 
 
 class BannerSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
     title = serializers.CharField()
     code = serializers.CharField()
     short_description = serializers.CharField()
@@ -40,6 +41,7 @@ class BannerSerializer(serializers.Serializer):
     number = serializers.CharField()
 
     def update(self, instance, validated_data):
+        instance.id = validated_data.get('id', instance.id)
         instance.title = validated_data.get('title', instance.title)
         instance.code = validated_data.get('code', instance.code)
         instance.short_description = validated_data.get('short_description', instance.short_description)
