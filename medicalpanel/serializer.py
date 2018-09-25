@@ -7,12 +7,14 @@ import base64
 
 
 class BlogSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
     blog_title = serializers.CharField()
     image = serializers.CharField(required=False)
     blog_description = serializers.CharField()
     author = serializers.CharField()
 
     def update(self, instance, validated_data):
+        instance.id = validated_data.get('id', instance.id)
         instance.blog_title = validated_data.get('blog_title', instance.blog_title)
         if validated_data.get('image'):
             bimage = base64.b64decode(validated_data.get('image'))
