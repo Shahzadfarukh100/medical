@@ -69,7 +69,9 @@
 								<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
 							</div>
 							<div class="col-lg-6 d-flex  img-right">
+                            {% if banner.image %}
 								<img class="img-fluid" src="{{ banner.image.url }}" alt="">
+                            {% endif %}
 							</div>
                             {% endfor %}
 						</div>
@@ -85,7 +87,9 @@
 						<div class="col-lg-6">
 							<div class="single-feature d-flex flex-row pb-30">
 								<div class="icon">
-									<img src="{{ banner.image.url }}" class="img-responsive">
+									{% if banner.image %}
+                                        <img src="{{ banner.image.url }}" class="img-responsive">
+                                    {% endif %}
 								</div>
 								<div class="desc">
 									<h4 class="text-uppercase">{{ banner.title }}</h4>
