@@ -98,16 +98,18 @@ class BannerGetView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = BannerSerializer(data=request.data)
         if serializer.is_valid():
-            bimage = base64.b64decode(request.data.get('image'))
-            bimage = io.BytesIO(bimage)
-            image = InMemoryUploadedFile(bimage,
-                                         'ImageField',
-                                         'image.jpg',
-                                         'image/jpeg',
-                                         sys.getsizeof(bimage),
-                                         None)
+            if serializer.validated_data.get('image'):
+                bimage = base64.b64decode(request.data.get('image'))
+                bimage = io.BytesIO(bimage)
+                image = InMemoryUploadedFile(bimage,
+                                             'ImageField',
+                                             'image.jpg',
+                                             'image/jpeg',
+                                             sys.getsizeof(bimage),
+                                             None)
             instance = Banner()
-            instance.image = image
+            if instance.image:
+                instance.image = image
             instance.title = serializer.validated_data['title']
             instance.code = serializer.validated_data['code']
             instance.short_description = serializer.validated_data['short_description']
