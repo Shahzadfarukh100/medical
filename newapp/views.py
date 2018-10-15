@@ -18,7 +18,9 @@ class IndexView(generic.FormView):
         return super(IndexView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.save(commit=True)
+        appointment = form.save(commit=True)
+        appointment.doctor = form.cleaned_data['doctor']
+        appointment.save()
         if self.is_ajax:
             return JsonResponse({'status': 'ok', 'message': 'Appointment Confirmed.'})
         return super(IndexView, self).form_valid(form)

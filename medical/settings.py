@@ -143,3 +143,4 @@ LOGIN_REDIRECT_URL = 'medicalpanel:dashboard'
 LOGOUT_REDIRECT_URL = 'medicalpanel:login'
 
 CORS_ORIGIN_WHITELIST = 'localhost:8001',
+AUTH_USER_MODEL = 'medicalpanel.User'

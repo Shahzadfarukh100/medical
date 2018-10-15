@@ -1,12 +1,25 @@
 from django import forms
+from django.contrib.auth.models import Group
 from .models import *
 
 
 class AppointmentForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(AppointmentForm, self).__init__(*args, **kwargs)
+        self.fields['doctor'].choices = self.get_doctors()
+        self.fields['doctor'].widget.attrs = {'class': 'form-control mt-20'}
+
+    def get_doctors(self):
+        docs = Group.objects.get(name='Doctor').user_set.all()
+        doctors = [(0, 'Select Doctor')]
+        for doc in docs:
+            doctors.append((doc.id, doc.full_name))
+        return doctors
+
     class Meta:
         model = Appointment
-        fields = ['patient_name', 'phone', 'appointment_date', 'message']
+        fields = ['patient_name', 'phone', 'appointment_date', 'message', 'doctor']
         widgets = {
             'patient_name': forms.TextInput(attrs={'id': 'patient', 'class': 'form-control mt-20',
                                                    'onfocus': "this.placeholder = ''", 'placeholder': 'Patient Name',

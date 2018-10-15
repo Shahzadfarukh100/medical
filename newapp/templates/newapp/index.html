@@ -140,6 +140,13 @@
                                             {% endif %}
                                         <div id="phone"></div>
                                         </div>
+                                        <div class="col-lg-6 d-flex flex-column">
+                                        {{ form.doctor }}
+                                            {% if form.doctor.errors %}
+                                            <span class="errorlist">{{ form.doctor.errors }}</span>
+                                            {% endif %}
+                                        <div id="doctor"></div>
+                                        </div>
 										<div class="col-lg-6 d-flex flex-column">
                                         {{ form.appointment_date }}
                                         {% if form.appointment_date.errors %}
@@ -375,6 +382,7 @@
                            phone :$('#phn').val(),
                            appointment_date :$('#appointment').val(),
                            message :$('#msg').val(),
+                           doctor: $('#id_doctor').val(),
                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                            ajax: true,
                        }, beforeSend: function() {

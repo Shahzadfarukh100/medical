@@ -1,4 +1,5 @@
 from django.db import models
+from medicalpanel.models import User
 
 
 class GenericMode(models.Model):
@@ -37,9 +38,10 @@ class Appointment(GenericMode):
     phone = models.CharField(max_length=15)
     appointment_date = models.DateField()
     message = models.TextField()
+    doctor = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '{}'.format(self.patient_name)
+        return self.patient_name
 
 
 class Consultant(GenericMode):
