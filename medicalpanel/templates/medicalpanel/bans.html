@@ -1,210 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<head>#}
+{#  {% load static %}#}
+{#  <meta charset="utf-8" />#}
+{#  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">#}
+{#  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">#}
+{#  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />#}
+{#  <title>#}
+{#    Dashboard#}
+{#  </title>#}
+{#  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />#}
+{#  <!--     Fonts and icons     -->#}
+{#  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />#}
+{#  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">#}
+{#  <!-- CSS Files -->#}
+{#  <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />#}
+{#  <!-- CSS Just for demo purpose, don't include it in your project -->#}
+{#  <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />#}
+{#</head>#}
 
-<head>
-  {% load static %}
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
-  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Dashboard
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- CSS Files -->
-  <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
-</head>
+{#<body class="">#}
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white"
+             data-image="{% static 'img/sidebar-1.jpg' %}">
+            <!--
+              Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-<body class="">
-  <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{% static 'img/sidebar-1.jpg' %}">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
-      <div class="logo">
-        <a href="{% url 'medicalpanel:dashboard' %}" class="simple-text logo-normal">
-          Medical Panel
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'medicalpanel:dashboard' %}">
-              <i class="material-icons">library_books</i>
-              <p>Blog Posts</p>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'medicalpanel:Dbans-view' %}">
-              <i class="material-icons">content_paste</i>
-              <p>Banners</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'medicalpanel:consultant-view' %}">
-              <i class="material-icons">library_books</i>
-              <p>Consultant</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'medicalpanel:input-view' %}">
-              <i class="material-icons">library_books</i>
-              <p>Inputs</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'medicalpanel:appointment-view' %}">
-              <i class="material-icons">content_paste</i>
-              <p>Appointment</p>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="{% url 'medicalpanel:newsletter-view' %}">
-              <i class="material-icons">library_books</i>
-              <p>Newsletter</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'medicalpanel:logout' %}">
-                  <i class="fa fa-power-off"></i>
-                  <p class="d-lg-none d-md-block">
-                    Logout
-                  </p>
+              Tip 2: you can also add an image using data-image tag
+          -->
+            <div class="logo">
+                <a href="{% url 'medicalpanel:dashboard' %}" class="simple-text logo-normal">
+                    Medical Panel
                 </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Banner</h4>
-                  <p class="card-category"> Create Update Delete Banner</p>
-                   <button id="add"  style="float: right"  data-toggle="modal" data-target="#add-modal" class="btn btn-primary" data-style="expand-left">
-                      Add Banner
-                  </button>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Number</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                      </thead>
-                      <tbody id="blog">
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
             </div>
-
-
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'medicalpanel:dashboard' %}">
+                            <i class="material-icons">library_books</i>
+                            <p>Blog Posts</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'medicalpanel:Dbans-view' %}">
+                            <i class="material-icons">content_paste</i>
+                            <p>Banners</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'medicalpanel:consultant-view' %}">
+                            <i class="material-icons">library_books</i>
+                            <p>Consultant</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'medicalpanel:input-view' %}">
+                            <i class="material-icons">library_books</i>
+                            <p>Inputs</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'medicalpanel:appointment-view' %}">
+                            <i class="material-icons">content_paste</i>
+                            <p>Appointment</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'medicalpanel:newsletter-view' %}">
+                            <i class="material-icons">library_books</i>
+                            <p>Newsletter</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </footer>
-    </div>
-  </div>
-    </div>
-  </div>
-  </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'medicalpanel:logout' %}">
+                                    <i class="fa fa-power-off"></i>
+                                    <p class="d-lg-none d-md-block">
+                                        Logout
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h4 class="card-title ">Banner</h4>
+                                    <p class="card-category"> Create Update Delete Banner</p>
+                                    <button id="add" style="float: right" data-toggle="modal" data-target="#add-modal"
+                                            class="btn btn-primary" data-style="expand-left">
+                                        Add Banner
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
+                                            <th>Number</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                            </thead>
+                                            <tbody id="blog">
 
-  <style>
-       .errorlist
-       {
-           color: #FF0000;
-       }
-       .successMsg{
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <nav class="float-left">
+                                    <ul>
+                                        <li>
+                                            <a href="https://www.creative-tim.com">
+                                                Creative Tim
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://creative-tim.com/presentation">
+                                                About Us
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://blog.creative-tim.com">
+                                                Blog
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.creative-tim.com/license">
+                                                Licenses
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="copyright float-right">
+                                    &copy;
+                                    <script>
+                                        document.write(new Date().getFullYear())
+                                    </script>
+                                    , made with <i class="material-icons">favorite</i> by
+                                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better
+                                    web.
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .errorlist {
+            color: #FF0000;
+        }
+
+        .successMsg {
             color: #4caf50;
         }
-   </style>
+    </style>
 
-<!-- ADD MODAL-->
-<div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><strong>Add Banner </strong></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" name="adding" id="adding"  enctype="multipart/form-data">
-                {% csrf_token %}
-                <center><b><div id="completed"></div></b></center>
-                <div class="modal-body">
-                    <div>
-                        <input type="text" name="title" id="tit" placeholder="Title" class="form-control" required/>
+    <!-- ADD MODAL-->
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>Add Banner </strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" name="adding" id="adding" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <center><b>
+                        <div id="completed"></div>
+                    </b></center>
+                    <div class="modal-body">
+                        <div>
+                            <input type="text" name="title" id="tit" placeholder="Title" class="form-control" required/>
                             <div id="title"></div>
-                        <br>
+                            <br>
                         </div>
                         <div>
                             <select name="code" id="cod" class="form-control" required>
@@ -216,105 +227,113 @@
                                 <option>Footer</option>
                             </select>
                             <div id="code"></div>
-                        <br>
+                            <br>
                         </div>
                         <div>
-                            <input type="text" name="des" id="des" placeholder="Description" class="form-control" required/>
+                            <input type="text" name="des" id="des" placeholder="Description" class="form-control"
+                                   required/>
                             <div id="short_description"></div>
-                        <br>
+                            <br>
                         </div>
                         <div>
-                             <input type="file" name="img" id="img" class="form-control">
+                            <input type="file" name="img" id="img" class="form-control">
                             <div id="image"></div>
-                        <br>
+                            <br>
                         </div>
                         <div>
                             <input type="text" name="num" id="num" placeholder="Number" class="form-control"/>
                             <div id="number"></div>
-                        <br>
+                            <br>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-lg text-uppercase ">Add Banner</button>
-                          <div class="alert-msg"></div>
-                </div>
-            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-lg text-uppercase ">Add Banner</button>
+                        <div class="alert-msg"></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- END ADD MODAL -->
+    <!-- END ADD MODAL -->
 
-<!-- UPDATE MODAL -->
+    <!-- UPDATE MODAL -->
 
-<div class="modal fade" id="Update" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><strong>Update Banner</strong></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal fade" id="Update" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>Update Banner</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="UDing" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div id="form"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" name="update-user" id="update-user" class="btn btn-primary"
+                                onclick="USubmit(this)">Update
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form method="post" id="UDing" enctype="multipart/form-data">
-                {% csrf_token %}
+        </div>
+    </div>
+
+    <!-- END Update MODAL -->
+
+    <!-- Delete MODAL -->
+
+    <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>Delete Banner</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body">
-                    <div id="form"></div>
+                    <h4>Are you sure you want to <strong>DELETE</strong> this banner ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" name="update-user" id="update-user" class="btn btn-primary" onclick="USubmit(this)">Update</button>
+                    <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary"
+                            onclick="DSubmit(this)" data-dismiss="modal">Delete
+                    </button>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- END Update MODAL -->
-
-<!-- Delete MODAL -->
-
-<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><strong>Delete Banner</strong></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h4>Are you sure you want to <strong>DELETE</strong> this banner ?</h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="DSubmit(this)" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
-</div>
+{% endblock %}
 
 <!-- END DELETE MODAL -->
 
-  <!--   Core JS Files   -->
-  <script src="{% static 'js/core/jquery.min.js' %}" type="text/javascript"></script>
-  <script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>
-  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}" type="text/javascript"></script>
-  <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-
-  <script src="{% static 'js/bootbox.min.js' %}"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!--  Google Maps Plugin    -->
+<!--   Core JS Files   -->
+{#  <script src="{% static 'js/core/jquery.min.js' %}" type="text/javascript"></script>#}
+{#  <script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>#}
+{#  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}" type="text/javascript"></script>#}
+{#  <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>#}
+{##}
+{#  <script src="{% static 'js/bootbox.min.js' %}"></script>#}
+{#  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
+{#  <!--  Google Maps Plugin    -->#}
 {#  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>#}
-  <!-- Chartist JS -->
-  <script src="{% static 'js/plugins/chartist.min.js' %}"></script>
-  <!--  Notifications Plugin    -->
-  <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{% static 'js/material-dashboard.min.js' %}" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="{% static 'demo/demo.js' %}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{#  <!-- Chartist JS -->#}
+{#  <script src="{% static 'js/plugins/chartist.min.js' %}"></script>#}
+{#  <!--  Notifications Plugin    -->#}
+{#  <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>#}
+{#  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->#}
+{#  <script src="{% static 'js/material-dashboard.min.js' %}" type="text/javascript"></script>#}
+{#  <!-- Material Dashboard DEMO methods, don't include it in your project! -->#}
+{#  <script src="{% static 'demo/demo.js' %}"></script>#}
+
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/tether/1.1.1/js/tether.min.js"></script>
@@ -322,170 +341,173 @@
 
 
     <script>
-        function redirecting(){
-        $.ajax({
-          method: "GET",
-          url: "{% url 'medicalpanel:banner' %}",
-        })
-          .done(function( msg ) {
-            var data = JSON.parse(msg);
-            var html = "";
-            for (var i=0; i < data.length; i++) {
-                var h = "<tr>";
-                var url = "{% url 'medicalpanel:banner-rud-post' 0%}";
-                url = url.slice(0, url.length-1) + data[i].id;
-                url = "data-url="+url;
-                h += "<td>" + data[i].id + "</td>";
-                h += "<td>" + data[i].title + "</td>";
-                h += "<td>" + data[i].code + "</td>";
-                h += "<td>" + data[i].short_description + "</td>";
-                h += "<td><a href='" + data[i].image + "' target='_blank'>" + data[i].image + "</a></td>";
-                h += "<td>" + data[i].number  + "</td>";
-                {% if user.is_superuser %}
-                h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-edit"'+url+' data-toggle="modal" data-target="#Update" onclick="updat(this)"></button>'+"</td>"
-                h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-trash"'+url+' data-toggle="modal" data-target="#Delete" onclick="del(this)"></button>'+"</td>"
-                {% endif %}
-                h += "</tr>";
-                html += h;
-            }
-            $("#blog").html(html);
-          });
-          }
+        function redirecting() {
+            $.ajax({
+                method: "GET",
+                url: "{% url 'medicalpanel:banner' %}",
+            })
+                .done(function (msg) {
+                    var data = JSON.parse(msg);
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var h = "<tr>";
+                        var url = "{% url 'medicalpanel:banner-rud-post' 0%}";
+                        url = url.slice(0, url.length - 1) + data[i].id;
+                        url = "data-url=" + url;
+                        h += "<td>" + data[i].id + "</td>";
+                        h += "<td>" + data[i].title + "</td>";
+                        h += "<td>" + data[i].code + "</td>";
+                        h += "<td>" + data[i].short_description + "</td>";
+                        h += "<td><a href='" + data[i].image + "' target='_blank'>" + data[i].image + "</a></td>";
+                        h += "<td>" + data[i].number + "</td>";
+                        {% if user.is_superuser %}
+                            h += "<td>" + '<button class="btn btn-primary btn-sm fa fa-edit"' + url + ' data-toggle="modal" data-target="#Update" onclick="updat(this)"></button>' + "</td>"
+                            h += "<td>" + '<button class="btn btn-primary btn-sm fa fa-trash"' + url + ' data-toggle="modal" data-target="#Delete" onclick="del(this)"></button>' + "</td>"
+                        {% endif %}
+                        h += "</tr>";
+                        html += h;
+                    }
+                    $("#blog").html(html);
+                });
+        }
+
         redirecting();
 
-        $( document ).on('submit', '#adding', function (e) {
-                   e.preventDefault();
-                   var img = $('#img')[0].files[0];
-                   if ($('#tit').val().length < 1){
-                       $('#title').html("<span class='errorlist'>This field may not be blank.</span>");
-                   }
-                   if ($('#cod').val().length < 1){
-                       $('#code').html("<span class='errorlist'>This field may not be blank.</span>");
-                   }
-                   if ($('#des').val().length < 1){
-                       $('#short_description').html("<span class='errorlist'>This field may not be blank.</span>");
-                   }
-                   if ($('#img').val().length < 1){
-                       $('#image').html("<span class='errorlist'>This field may not be blank.</span>");
-                   }
-                   if ($('#num').val().length < 1){
-                       $('#number').html("<span class='errorlist'>This field may not be blank.</span>");
-                   }
-                   var reader = new FileReader();
-                   reader.readAsBinaryString(img);
-                    reader.onloadend = function () {
-                        var base64 = btoa(reader.result);
-                        console.log(base64);
-                        var title = $('#tit').val();
-                        var code = $('#cod').val();
-                        var desc = $('#des').val();
-                        var number = $('#num').val();
-                        var data = {
-                           title: title,
-                           code: code,
-                           short_description: desc,
-                           image: base64,
-                           number: number,
-                       };
-                        console.log(data);
-                        $.ajax({
-                            type: 'POST',
-                            url: '{% url "medicalpanel:banner" %}',
-                            headers: {
-                           'X-CSRFToken': "{{ csrf_token }}",
-                            },
-                            data: data,
-                            success:function (res) {
-                                if (res.status == 'ok'){
-                                    redirecting();
-                                    document.getElementById("adding").reset();
-                                    $('#completed').html("<span class='successMsg'>"+res.message+"</span>");
-                                    $('#title').html("");
-                                    $('#code').html("");
-                                    $('#short_description').html("");
-                                    $('#image').html("");
-                                    $('#number').html("");
-                                }else if (res.status=="error") {
-                                    var keys = Object.keys(res.message);
-                                    console.log(keys);
-                                    for (var i = 0; i < keys.length; i++) {
-                                        var msg = res.message[keys[i]];
-                                        var key = keys[i];
-                                        $('#'+key).html("<span class='errorlist'>"+msg+"</span>");
-                                    }
-                                }
+        $(document).on('submit', '#adding', function (e) {
+            e.preventDefault();
+            var img = $('#img')[0].files[0];
+            if ($('#tit').val().length < 1) {
+                $('#title').html("<span class='errorlist'>This field may not be blank.</span>");
+            }
+            if ($('#cod').val().length < 1) {
+                $('#code').html("<span class='errorlist'>This field may not be blank.</span>");
+            }
+            if ($('#des').val().length < 1) {
+                $('#short_description').html("<span class='errorlist'>This field may not be blank.</span>");
+            }
+            if ($('#img').val().length < 1) {
+                $('#image').html("<span class='errorlist'>This field may not be blank.</span>");
+            }
+            if ($('#num').val().length < 1) {
+                $('#number').html("<span class='errorlist'>This field may not be blank.</span>");
+            }
+            var reader = new FileReader();
+            reader.readAsBinaryString(img);
+            reader.onloadend = function () {
+                var base64 = btoa(reader.result);
+                console.log(base64);
+                var title = $('#tit').val();
+                var code = $('#cod').val();
+                var desc = $('#des').val();
+                var number = $('#num').val();
+                var data = {
+                    title: title,
+                    code: code,
+                    short_description: desc,
+                    image: base64,
+                    number: number,
+                };
+                console.log(data);
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "medicalpanel:banner" %}',
+                    headers: {
+                        'X-CSRFToken': "{{ csrf_token }}",
+                    },
+                    data: data,
+                    success: function (res) {
+                        if (res.status == 'ok') {
+                            redirecting();
+                            document.getElementById("adding").reset();
+                            $('#completed').html("<span class='successMsg'>" + res.message + "</span>");
+                            $('#title').html("");
+                            $('#code').html("");
+                            $('#short_description').html("");
+                            $('#image').html("");
+                            $('#number').html("");
+                        } else if (res.status == "error") {
+                            var keys = Object.keys(res.message);
+                            console.log(keys);
+                            for (var i = 0; i < keys.length; i++) {
+                                var msg = res.message[keys[i]];
+                                var key = keys[i];
+                                $('#' + key).html("<span class='errorlist'>" + msg + "</span>");
                             }
-                        });
-                    };
+                        }
+                    }
+                });
+            };
         });
 
-        // <!--Update getting-->
+        //
+        <!--Update getting-->
         function updat(ref) {
             var u = $(ref).attr('data-url');
             $('#update-user').attr('data-url', u);
-           $.ajax({
-                 type:"GET",
-                 url: u,
+            $.ajax({
+                type: "GET",
+                url: u,
             })
-            .done(function( msg ) {
-                var title = msg.title;
-                var code = msg.code;
-                var short_description = msg.short_description;
-                var image = 'image';
-                var number = msg.number;
+                .done(function (msg) {
+                    var title = msg.title;
+                    var code = msg.code;
+                    var short_description = msg.short_description;
+                    var image = 'image';
+                    var number = msg.number;
 
-                var x = document.createElement('input');
-                x.value = title;
-                x.id = 'tito';
-                x.name = 'title';
-                x.className = 'form-control';
-                x.type = 'text';
+                    var x = document.createElement('input');
+                    x.value = title;
+                    x.id = 'tito';
+                    x.name = 'title';
+                    x.className = 'form-control';
+                    x.type = 'text';
 
-                var c = document.createElement('input');
-                c.value = code;
-                c.id = 'co';
-                c.name = 'code';
-                c.className = 'form-control';
-                c.type = 'text';
+                    var c = document.createElement('input');
+                    c.value = code;
+                    c.id = 'co';
+                    c.name = 'code';
+                    c.className = 'form-control';
+                    c.type = 'text';
 
-                var s = document.createElement('input');
-                s.value = short_description;
-                s.id = 'sh';
-                s.name = 'short';
-                s.className = 'form-control';
-                s.type = 'text';
+                    var s = document.createElement('input');
+                    s.value = short_description;
+                    s.id = 'sh';
+                    s.name = 'short';
+                    s.className = 'form-control';
+                    s.type = 'text';
 
-                var i = document.createElement('input');
-                i.value = image;
-                i.id = 'im';
-                i.name = 'image';
-                i.className = 'form-control';
-                i.type = 'file';
+                    var i = document.createElement('input');
+                    i.value = image;
+                    i.id = 'im';
+                    i.name = 'image';
+                    i.className = 'form-control';
+                    i.type = 'file';
 
-                var y = document.createElement('input');
-                y.value = number;
-                y.id = 'no';
-                y.name = 'number';
-                y.className = 'form-control';
-                y.type = 'text';
+                    var y = document.createElement('input');
+                    y.value = number;
+                    y.id = 'no';
+                    y.name = 'number';
+                    y.className = 'form-control';
+                    y.type = 'text';
 
 
-                var div = document.createElement('div');
-                div.appendChild(x);
-                div.appendChild(c);
-                div.appendChild(s);
-                div.appendChild(i);
-                div.appendChild(y);
+                    var div = document.createElement('div');
+                    div.appendChild(x);
+                    div.appendChild(c);
+                    div.appendChild(s);
+                    div.appendChild(i);
+                    div.appendChild(y);
 
-                $("#form").html(div);
-          });
+                    $("#form").html(div);
+                });
         }
 
-        // <!--after getting updating-->
+        //
+        <!--after getting updating-->
         function USubmit(ref) {
             var u = $(ref).attr('data-url');
             var im = $('#im')[0].files[0];
-            if ($('#im').val().length >1) {
+            if ($('#im').val().length > 1) {
                 var reader = new FileReader();
                 reader.readAsBinaryString(im);
                 reader.onloadend = function () {
@@ -516,56 +538,58 @@
                             redirecting();
                         });
                 }
-            }else{
+            } else {
                 var tito = $('#tito').val();
-                    var code = $('#co').val();
-                    var short = $('#sh').val();
-                    var number = $('#no').val();
-                    var data = {
-                        title: tito,
-                        code: code,
-                        short_description: short,
-                        number: number,
-                    };
-                    console.log(data);
-                    $.ajax({
-                        type: "PUT",
-                        url: u,
-                        headers: {
-                            "X-CSRFToken": "{{csrf_token}}"
-                        },
-                        data: data
-                    })
-                        .done(function (msg) {
-                            console.log(msg);
-                            redirecting();
-                        });
+                var code = $('#co').val();
+                var short = $('#sh').val();
+                var number = $('#no').val();
+                var data = {
+                    title: tito,
+                    code: code,
+                    short_description: short,
+                    number: number,
+                };
+                console.log(data);
+                $.ajax({
+                    type: "PUT",
+                    url: u,
+                    headers: {
+                        "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    data: data
+                })
+                    .done(function (msg) {
+                        console.log(msg);
+                        redirecting();
+                    });
             }
         }
 
-        // <!--Delete getting-->
+        //
+        <!--Delete getting-->
         function del(ref) {
-           var u = $(ref).attr('data-url');
-           $('#delete-blog').attr('data-url', u);
+            var u = $(ref).attr('data-url');
+            $('#delete-blog').attr('data-url', u);
         }
 
         <!-- after getting Deleting-->
-        function DSubmit(ref){
+        function DSubmit(ref) {
             var u = $(ref).attr('data-url');
             $.ajax({
-                 type:"DELETE",
-                 url: u,
-                 headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                 }
+                type: "DELETE",
+                url: u,
+                headers: {
+                    "X-CSRFToken": "{{csrf_token}}"
+                }
             })
-            .done(function( msg ) {
-            console.log(msg);
-            redirecting();
-            });
+                .done(function (msg) {
+                    console.log(msg);
+                    redirecting();
+                });
         }
     </script>
-
-</body>
-
-</html>
+{% endblock %}
+{##}
+{#</body>#}
+{##}
+{#</html>#}

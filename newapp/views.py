@@ -1,11 +1,12 @@
 from django.views import generic
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from newapp.forms import AppointmentForm, NewsletterForm
-from newapp import models as new_model
+from django.http import JsonResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
+
+from newapp.forms import AppointmentForm, NewsletterForm
+from newapp import models as new_model
 
 
 class IndexView(generic.FormView):
