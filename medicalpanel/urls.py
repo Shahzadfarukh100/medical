@@ -6,6 +6,9 @@ from . import views
 app_name = 'medicalpanel'
 
 urlpatterns = [
+
+    url('signup/', SignupView.as_view(), name='signup'),
+
     url('login/', AppLoginView.as_view(), name='login'),
 
     url('dashboard/', DashboardView.as_view(), name='dashboard'),

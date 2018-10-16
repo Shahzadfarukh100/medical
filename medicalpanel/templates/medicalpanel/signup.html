@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+
+    <style>
+            .errorlist {
+                color: #FF0000;
+            }
+            .successMsg{
+                color: mediumspringgreen;
+            }
+    </style>
+    <div class="container">
+        <div  style="padding-top:110px;">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" style="background-color: white; padding-top:30px; padding-bottom:10px;">
+                    <h2>Sign Up</h2>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                             <li class="alert alert-danger">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <form method="post" class="form-horizontal" novalidate>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <center>
+                            <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" type="submit">
+                                Sign Up
+                            </button>
+                        </center>
+                    </form>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
