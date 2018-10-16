@@ -1,28 +1,29 @@
 import io
 import sys
+import base64
+import json
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.contrib import auth
+from django.contrib.auth.views import LoginView
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
+
 from .serializer import (BlogSerializer,
                          BannerSerializer,
                          ConsultantSerializer,
                          AppointmentSerializer,
                          NewsletterSerializer,
                          InputSerializer)
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
-from rest_framework.response import Response
-from rest_framework import status
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-import json
 from newapp.forms import *
-from django.contrib import auth
-from django.contrib.auth.views import LoginView
-import base64
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
 
 
 # Login
@@ -62,7 +63,7 @@ class BlogGetView(APIView):
             instance = BlogPost()
             instance.image = image
             instance.blog_title = serializer.validated_data['blog_title']
-            instance.blog_description= serializer.validated_data['blog_description']
+            instance.blog_description = serializer.validated_data['blog_description']
             instance.author = serializer.validated_data['author']
             instance.save()
             return JsonResponse({'status': 'ok', "message": "Blog Added"})
@@ -78,7 +79,7 @@ class BlogRUDView(RetrieveUpdateDestroyAPIView):
 
 
 # Banner
-class DBannerView(LoginRequiredMixin, generic.TemplateView):
+class DBannerView(generic.TemplateView):
     template_name = 'medicalpanel/bans.html'
     login_url = reverse_lazy('medicalpanel:login')
 
