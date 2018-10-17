@@ -14,7 +14,6 @@ class SignupForm(forms.ModelForm):
             'last_name': '',
             'email': '',
             'password': '',
-            'groups': '',
         }
 
         help_texts = {
@@ -36,12 +35,11 @@ class SignupForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'id': 'pas', 'type': 'password', 'class': 'form-control',
                                              'onfocus': "this.placeholder = ''", 'placeholder': 'Enter Password',
                                              'onblur': "this.placeholder = 'Enter Password'"}),
-            'groups': forms.Select(attrs={'class': 'form-control'})
+            'groups': forms.CheckboxSelectMultiple()
         }
 
     def save(self, commit=True):
         instance = super(SignupForm, self).save(commit=False)
-        instance.is_superuser = True
         instance.set_password(self.cleaned_data['password'])
         instance.save()
         self.save_m2m()
