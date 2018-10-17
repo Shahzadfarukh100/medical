@@ -14,6 +14,7 @@ class SignupForm(forms.ModelForm):
             'last_name': '',
             'email': '',
             'password': '',
+            'groups': '',
         }
 
         help_texts = {
@@ -35,7 +36,7 @@ class SignupForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'id': 'pas', 'type': 'password', 'class': 'form-control',
                                              'onfocus': "this.placeholder = ''", 'placeholder': 'Enter Password',
                                              'onblur': "this.placeholder = 'Enter Password'"}),
-            'groups': forms.CheckboxSelectMultiple()
+            'groups': forms.Select(attrs={'class': 'form-control'})
         }
 
     def save(self, commit=True):
