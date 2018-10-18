@@ -1,6 +1,49 @@
 from django import forms
 from django.contrib.auth.models import Group
 from .models import *
+from medicalpanel.models import User
+
+
+class SignupForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'password', 'groups']
+        labels = {
+            'first_name': '',
+            'last_name': '',
+            'email': '',
+            'password': '',
+        }
+
+        help_texts = {
+            'groups': '',
+        }
+        widgets = {
+            'first_name': forms.TextInput(attrs={'id': 'fn', 'type': 'text', 'class': 'form-control',
+                                             'onfocus': "this.placeholder = ''", 'placeholder': 'First Name',
+                                             'onblur': "this.placeholder = 'First Name'"}),
+
+            'last_name': forms.TextInput(attrs={'id': 'ln', 'type': 'text', 'class': 'form-control',
+                                                 'onfocus': "this.placeholder = ''", 'placeholder': 'Last Name',
+                                                 'onblur': "this.placeholder = 'Last Name'"}),
+
+            'email': forms.EmailInput(attrs={'id': 'em', 'type': 'email', 'class': 'form-control',
+                                             'onfocus': "this.placeholder = ''", 'placeholder': 'Enter Email',
+                                             'onblur': "this.placeholder = 'Enter Email'"}),
+
+            'password': forms.PasswordInput(attrs={'id': 'pas', 'type': 'password', 'class': 'form-control',
+                                             'onfocus': "this.placeholder = ''", 'placeholder': 'Enter Password',
+                                             'onblur': "this.placeholder = 'Enter Password'"}),
+            'groups': forms.CheckboxSelectMultiple()
+        }
+
+    def save(self, commit=True):
+        instance = super(SignupForm, self).save(commit=False)
+        instance.set_password(self.cleaned_data['password'])
+        instance.save()
+        self.save_m2m()
+        return instance
 
 
 class AppointmentForm(forms.ModelForm):

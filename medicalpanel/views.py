@@ -23,7 +23,19 @@ from .serializer import (BlogSerializer,
                          AppointmentSerializer,
                          NewsletterSerializer,
                          InputSerializer)
-from newapp.forms import *
+from newapp.forms import AppointmentForm, NewsletterForm, SignupForm
+from newapp.models import Appointment, BlogPost, Banner, Consultant, Newsletter, Input
+
+
+#signup
+class SignupView(generic.FormView):
+    form_class = SignupForm
+    template_name = 'medicalpanel/signup.html'
+    success_url = reverse_lazy('medicalpanel:dashboard')
+
+    def form_valid(self, form):
+        form.save()
+        return super(SignupView, self).form_valid(form)
 
 
 # Login
