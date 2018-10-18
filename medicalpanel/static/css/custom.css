@@ -1,0 +1,16 @@
+.myClass {
+  padding-top: 80px;
+}
+
+.myClassTwo {
+    background-color: white;
+    padding-top:30px;
+    padding-bottom:10px;
+}
+
+.errorlist {
+    color: #FF0000;
+}
+.successMsg{
+    color: mediumspringgreen;
+}
