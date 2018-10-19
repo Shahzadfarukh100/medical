@@ -210,7 +210,7 @@
                 <h4>Are you sure you want to <strong>DELETE</strong> this Email ?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="DSubmit(this)" data-dismiss="modal">Delete</button>
+                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="nDSubmit(this)" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
@@ -222,91 +222,6 @@
 
 {% block scripts %}
 
-    <script>
-        function redirecting(){
-        $.ajax({
-          method: "GET",
-          url: "{% url 'medicalpanel:newsletter' %}",
-        })
-          .done(function( msg ) {
-            var data = JSON.parse(msg);
-            var html = "";
-            for (var i=0; i < data.length; i++) {
-                var h = "<tr>";
-                var url = "{% url 'medicalpanel:newsletter-rud-post' 0%}";
-                url = url.slice(0, url.length-1) + data[i].id;
-                url = "data-url="+url;
-                h += "<td>" + data[i].id + "</td>";
-                h += "<td>" + data[i].email + "</td>";
-                h += "<td>" + data[i].dated + "</td>";
-                {% if user.is_superuser %}
-                {#h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-edit"'+url+' data-toggle="modal" data-target="#Update" onclick="update(this)"></button>'+"</td>"#}
-                h += "<td>"+'<button class="btn btn-primary btn-sm fa fa-trash"'+url+' data-toggle="modal" data-target="#Delete" onclick="del(this)"></button>'+"</td>"
-                {% endif %}
-                h += "</tr>";
-                html += h;
-            }
-            $("#blog").html(html);
-          });
-          }
-        redirecting();
-
-         $( document ).on('submit', '#newsForm', function (e) {
-                   e.preventDefault();
-                    var spinner = $('#spinner-subscribe');
-                   spinner.removeClass('fa-arrow-right');
-                   spinner.addClass('fa-spinner');
-                   spinner.addClass('fa-spin');
-                   $.ajax({
-                       type: 'POST',
-                       url: '{% url "newapp:subscribe" %}',
-                       data:{
-                           email :$('#em').val(),
-                           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-                       },
-                       success:function (res) {
-                           spinner.removeClass('fa-spinner');
-                           spinner.removeClass('fa-spin');
-                           spinner.addClass('fa-arrow-right');
-                           if (res.status == 'ok'){
-                               redirecting();
-                               $('#completed').html("<span class='successMsg'>"+res.message+"</span>");
-                               document.getElementById("newsForm").reset();
-                               $('#error-message').html("");
-                           } else if (res.status=="error") {
-                               var keys = Object.keys(res.message);
-                               var html = "";
-                               for (var i = 0; i < keys.length; i++) {
-                                   var message = res.message[keys[i]];
-                                   var s = "<i class='errorlist'>"+message+"</i>";
-                                   html += s;
-                               }
-                               $('#error-message').html(html);
-                           }
-                       }
-                   });
-                });
-
-        // <!--Delete getting-->
-        function del(ref) {
-           var u = $(ref).attr('data-url');
-           $('#delete-blog').attr('data-url', u);
-        }
-
-        <!-- after getting Deleting-->
-        function DSubmit(ref){
-            var u = $(ref).attr('data-url');
-            $.ajax({
-                 type:"DELETE",
-                 url: u,
-                 headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                 }
-            })
-            .done(function( msg ) {
-            console.log(msg);
-            redirecting();
-            });
-        }
-    </script>
+    <script src="{% static 'js/blog.js' %}"></script>
+    <script>newletterRedirecting();</script>
 {% endblock %}

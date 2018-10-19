@@ -183,7 +183,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" name="adding" id="adding" enctype="multipart/form-data">
+                <form method="post" name="adding" id="banneradding" enctype="multipart/form-data">
                     {% csrf_token %}
                     <center><b>
                         <div id="completed"></div>
@@ -252,7 +252,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" name="update-user" id="update-user" class="btn btn-primary"
-                                onclick="USubmit(this)">Update
+                                onclick="bansUSubmit(this)">Update
                         </button>
                     </div>
                 </form>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary"
-                            onclick="DSubmit(this)" data-dismiss="modal">Delete
+                            onclick="bansDSubmit(this)" data-dismiss="modal">Delete
                     </button>
                 </div>
             </div>
@@ -289,261 +289,8 @@
 <!-- END DELETE MODAL -->
 
 {% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/tether/1.1.1/js/tether.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
+    <script>bannerRedirecting();</script>
 
-
-    <script>
-        function redirecting() {
-            $.ajax({
-                method: "GET",
-                url: "{% url 'medicalpanel:banner' %}",
-            })
-                .done(function (msg) {
-                    var data = JSON.parse(msg);
-                    var html = "";
-                    for (var i = 0; i < data.length; i++) {
-                        var h = "<tr>";
-                        var url = "{% url 'medicalpanel:banner-rud-post' 0%}";
-                        url = url.slice(0, url.length - 1) + data[i].id;
-                        url = "data-url=" + url;
-                        h += "<td>" + data[i].id + "</td>";
-                        h += "<td>" + data[i].title + "</td>";
-                        h += "<td>" + data[i].code + "</td>";
-                        h += "<td>" + data[i].short_description + "</td>";
-                        h += "<td><a href='" + data[i].image + "' target='_blank'>" + data[i].image + "</a></td>";
-                        h += "<td>" + data[i].number + "</td>";
-                        {% if user.is_superuser %}
-                            h += "<td>" + '<button class="btn btn-primary btn-sm fa fa-edit"' + url + ' data-toggle="modal" data-target="#Update" onclick="updat(this)"></button>' + "</td>"
-                            h += "<td>" + '<button class="btn btn-primary btn-sm fa fa-trash"' + url + ' data-toggle="modal" data-target="#Delete" onclick="del(this)"></button>' + "</td>"
-                        {% endif %}
-                        h += "</tr>";
-                        html += h;
-                    }
-                    $("#blog").html(html);
-                });
-        }
-
-        redirecting();
-
-        $(document).on('submit', '#adding', function (e) {
-            e.preventDefault();
-            var img = $('#img')[0].files[0];
-            if ($('#tit').val().length < 1) {
-                $('#title').html("<span class='errorlist'>This field may not be blank.</span>");
-            }
-            if ($('#cod').val().length < 1) {
-                $('#code').html("<span class='errorlist'>This field may not be blank.</span>");
-            }
-            if ($('#des').val().length < 1) {
-                $('#short_description').html("<span class='errorlist'>This field may not be blank.</span>");
-            }
-            if ($('#img').val().length < 1) {
-                $('#image').html("<span class='errorlist'>This field may not be blank.</span>");
-            }
-            if ($('#num').val().length < 1) {
-                $('#number').html("<span class='errorlist'>This field may not be blank.</span>");
-            }
-            var reader = new FileReader();
-            reader.readAsBinaryString(img);
-            reader.onloadend = function () {
-                var base64 = btoa(reader.result);
-                console.log(base64);
-                var title = $('#tit').val();
-                var code = $('#cod').val();
-                var desc = $('#des').val();
-                var number = $('#num').val();
-                var data = {
-                    title: title,
-                    code: code,
-                    short_description: desc,
-                    image: base64,
-                    number: number,
-                };
-                console.log(data);
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url "medicalpanel:banner" %}',
-                    headers: {
-                        'X-CSRFToken': "{{ csrf_token }}",
-                    },
-                    data: data,
-                    success: function (res) {
-                        if (res.status == 'ok') {
-                            redirecting();
-                            document.getElementById("adding").reset();
-                            $('#completed').html("<span class='successMsg'>" + res.message + "</span>");
-                            $('#title').html("");
-                            $('#code').html("");
-                            $('#short_description').html("");
-                            $('#image').html("");
-                            $('#number').html("");
-                        } else if (res.status == "error") {
-                            var keys = Object.keys(res.message);
-                            console.log(keys);
-                            for (var i = 0; i < keys.length; i++) {
-                                var msg = res.message[keys[i]];
-                                var key = keys[i];
-                                $('#' + key).html("<span class='errorlist'>" + msg + "</span>");
-                            }
-                        }
-                    }
-                });
-            };
-        });
-
-        //
-        <!--Update getting-->
-        function updat(ref) {
-            var u = $(ref).attr('data-url');
-            $('#update-user').attr('data-url', u);
-            $.ajax({
-                type: "GET",
-                url: u,
-            })
-                .done(function (msg) {
-                    var title = msg.title;
-                    var code = msg.code;
-                    var short_description = msg.short_description;
-                    var image = 'image';
-                    var number = msg.number;
-
-                    var x = document.createElement('input');
-                    x.value = title;
-                    x.id = 'tito';
-                    x.name = 'title';
-                    x.className = 'form-control';
-                    x.type = 'text';
-
-                    var c = document.createElement('input');
-                    c.value = code;
-                    c.id = 'co';
-                    c.name = 'code';
-                    c.className = 'form-control';
-                    c.type = 'text';
-
-                    var s = document.createElement('input');
-                    s.value = short_description;
-                    s.id = 'sh';
-                    s.name = 'short';
-                    s.className = 'form-control';
-                    s.type = 'text';
-
-                    var i = document.createElement('input');
-                    i.value = image;
-                    i.id = 'im';
-                    i.name = 'image';
-                    i.className = 'form-control';
-                    i.type = 'file';
-
-                    var y = document.createElement('input');
-                    y.value = number;
-                    y.id = 'no';
-                    y.name = 'number';
-                    y.className = 'form-control';
-                    y.type = 'text';
-
-
-                    var div = document.createElement('div');
-                    div.appendChild(x);
-                    div.appendChild(c);
-                    div.appendChild(s);
-                    div.appendChild(i);
-                    div.appendChild(y);
-
-                    $("#form").html(div);
-                });
-        }
-
-        //
-        <!--after getting updating-->
-        function USubmit(ref) {
-            var u = $(ref).attr('data-url');
-            var im = $('#im')[0].files[0];
-            if ($('#im').val().length > 1) {
-                var reader = new FileReader();
-                reader.readAsBinaryString(im);
-                reader.onloadend = function () {
-                    var base64 = btoa(reader.result);
-                    console.log(base64);
-                    var tito = $('#tito').val();
-                    var code = $('#co').val();
-                    var short = $('#sh').val();
-                    var number = $('#no').val();
-                    var data = {
-                        title: tito,
-                        code: code,
-                        short_description: short,
-                        image: base64,
-                        number: number,
-                    };
-                    console.log(data);
-                    $.ajax({
-                        type: "PUT",
-                        url: u,
-                        headers: {
-                            "X-CSRFToken": "{{csrf_token}}"
-                        },
-                        data: data
-                    })
-                        .done(function (msg) {
-                            console.log(msg);
-                            redirecting();
-                        });
-                }
-            } else {
-                var tito = $('#tito').val();
-                var code = $('#co').val();
-                var short = $('#sh').val();
-                var number = $('#no').val();
-                var data = {
-                    title: tito,
-                    code: code,
-                    short_description: short,
-                    number: number,
-                };
-                console.log(data);
-                $.ajax({
-                    type: "PUT",
-                    url: u,
-                    headers: {
-                        "X-CSRFToken": "{{csrf_token}}"
-                    },
-                    data: data
-                })
-                    .done(function (msg) {
-                        console.log(msg);
-                        redirecting();
-                    });
-            }
-        }
-
-        //
-        <!--Delete getting-->
-        function del(ref) {
-            var u = $(ref).attr('data-url');
-            $('#delete-blog').attr('data-url', u);
-        }
-
-        <!-- after getting Deleting-->
-        function DSubmit(ref) {
-            var u = $(ref).attr('data-url');
-            $.ajax({
-                type: "DELETE",
-                url: u,
-                headers: {
-                    "X-CSRFToken": "{{csrf_token}}"
-                }
-            })
-                .done(function (msg) {
-                    console.log(msg);
-                    redirecting();
-                });
-        }
-    </script>
 {% endblock %}
