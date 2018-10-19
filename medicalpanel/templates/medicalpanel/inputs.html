@@ -179,7 +179,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" name="adding" id="adding"  enctype="multipart/form-data" novalidate>
+            <form method="post" name="adding" id="inputadding"  enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <center><b><div id="completed"></div></b></center>
                 <div class="modal-body">
@@ -232,7 +232,7 @@
                     <div id="form"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" name="update-user" id="update-user" class="btn btn-primary" onclick="USubmit(this)">Update</button>
+                    <button type="button" name="update-user" id="update-user" class="btn btn-primary" onclick="iUSubmit(this)">Update</button>
                 </div>
             </form>
         </div>
@@ -256,7 +256,7 @@
                 <h4>Are you sure you want to <strong>DELETE</strong> this Input ?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="DSubmit(this)" data-dismiss="modal">Delete</button>
+                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="iDSubmit(this)" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
@@ -268,7 +268,7 @@
 
 {% block scripts %}
 
-    <script src="{% static 'js/inputs.js' %}"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
     <script>inputRedirecting();</script>
 
 {% endblock %}

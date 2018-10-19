@@ -183,7 +183,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" name="adding" id="adding" enctype="multipart/form-data">
+                <form method="post" name="adding" id="banneradding" enctype="multipart/form-data">
                     {% csrf_token %}
                     <center><b>
                         <div id="completed"></div>
@@ -290,7 +290,7 @@
 
 {% block scripts %}
 
-    <script src="{% static 'js/banner.js' %}"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
     <script>bannerRedirecting();</script>
 
 {% endblock %}

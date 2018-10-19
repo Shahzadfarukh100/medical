@@ -210,7 +210,7 @@
                 <h4>Are you sure you want to <strong>DELETE</strong> this Email ?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="DSubmit(this)" data-dismiss="modal">Delete</button>
+                <button type="button" name="delete-blog" id="delete-blog" class="btn btn-primary" onclick="nDSubmit(this)" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
@@ -222,6 +222,6 @@
 
 {% block scripts %}
 
-    <script src="{% static 'js/newsletter.js' %}"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
     <script>newletterRedirecting();</script>
 {% endblock %}
